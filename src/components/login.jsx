@@ -39,7 +39,7 @@ const LogIn = () => {
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         const decoded = jwtDecode(res.data.token);
-        login(decoded.name)
+        login(decoded)
         navigate("/admin/home")
         console.log(decoded.name)
       } else {

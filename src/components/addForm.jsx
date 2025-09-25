@@ -4,8 +4,8 @@ import axios from "axios";
 import { Img } from "react-image";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
-
 const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
+  const [error, setError] = useState("");
   const [propertyId, setPropertyId] = useState("");
   const [yearBuilt, setYearBuilt] = useState("");
   const [category, setCategory] = useState("");
@@ -152,7 +152,7 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
           }
         );
         if (res.data.success) {
-          console.log(res)
+          console.log(res);
           fetchProperties();
           openForm(false);
         }
@@ -187,8 +187,12 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
           }
         );
         console.log(res);
+        if (res.data.message == "Unauthorized") {
+          setError(res.data.message);
+          openForm(true)
+        }
         if (res.data.success) {
-          console.log(res)
+          console.log(res);
           fetchProperties();
           openForm(false);
         }
@@ -212,7 +216,9 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
           openForm(false);
         }}
         className="fixed inset-0 bg-black opacity-15 z-40"
-      ></div>
+      >
+        {error && <p>Unathorized</p>}
+      </div>
 
       <form className="fixed flex flex-col justify-between text-right inset-0 m-auto h-[70%] w-[75%] rounded-2xl z-50 bg-white shadow p-6 overflow-y-scroll no-scrollbar ">
         <div className="grid sm:grid-cols-4 gap-10">
@@ -540,22 +546,21 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
         </div>
 
         <button
-  onClick={(e) => {
-    handleSubmit(e);
-    setLoading(true);
-  }}
-  type="submit"
-  className="bg-[var(--bg-main)] cursor-pointer mb-0 text-white py-2 rounded-full hover:bg-[#375963] m-auto w-[70%] flex justify-center items-center"
->
-  {loading ? (
-    <div className="loader w-9 h-9 border-t-transparent"></div> 
-  ) : Object.keys(editedProperty).length === 0 ? (
-    "إضافة العقار"
-  ) : (
-    "تعديل"
-  )}
-</button>
-
+          onClick={(e) => {
+            handleSubmit(e);
+            setLoading(true);
+          }}
+          type="submit"
+          className="bg-[var(--bg-main)] cursor-pointer mb-0 text-white py-2 rounded-full hover:bg-[#375963] m-auto w-[70%] flex justify-center items-center"
+        >
+          {loading ? (
+            <div className="loader w-9 h-9 border-t-transparent"></div>
+          ) : Object.keys(editedProperty).length === 0 ? (
+            "إضافة العقار"
+          ) : (
+            "تعديل"
+          )}
+        </button>
       </form>
     </>
   );

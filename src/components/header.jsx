@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoImgAvif from "../assets/logo.avif";
+import { jwtDecode } from "jwt-decode";
 
-// Icons
 import FacebookIcon from "lucide-react/dist/esm/icons/facebook";
 import InstagramIcon from "lucide-react/dist/esm/icons/instagram";
 import LinkedinIcon from "lucide-react/dist/esm/icons/linkedin";
 import { FaWhatsapp } from "react-icons/fa";
-import { Moon, Sun } from "lucide-react"; // Icons
+import { Moon, Sun } from "lucide-react"; 
 
 import { useAuth } from "./contextApi";
 
 const Header = ({ fetchProperties }) => {
   const token = localStorage.getItem("token");
-  const { user, handleLogout } = useAuth();
+  const { handleLogout } = useAuth();
   const [open, setOpen] = useState(false);
+const user = jwtDecode(localStorage.getItem("token")).name
 
   const dropdownRef = useRef(null);
   const triggerRef = useRef(null);
@@ -34,7 +35,6 @@ const Header = ({ fetchProperties }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
 
 
   return (
@@ -58,7 +58,7 @@ const Header = ({ fetchProperties }) => {
         <span className="font-semibold text-sm hidden sm:inline">
           {token ? user || "الحساب" : "تواصل معنا"}
         </span>
-        <div className={`h-8 w-8 rounded-full bg-white flex ${token ? "items-start" : "items-center" } justify-center text-[var(--bg-main)] font-bold`}>
+        <div className={`h-8 w-8 rounded-full bg-white flex ${token ? "items-center" : "items-center" } justify-center text-[var(--bg-main)] font-bold`}>
           {token ? user?.charAt(0).toUpperCase() : "?"}
         </div>
       </div>
@@ -111,7 +111,7 @@ const Header = ({ fetchProperties }) => {
 
         <div className="flex justify-evenly items-center mt-4 pt-4 border-t border-gray-200 ">
           <a
-            href="https://www.facebook.com/AltamayozforRealEstateInvestment"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
@@ -135,7 +135,7 @@ const Header = ({ fetchProperties }) => {
             <LinkedinIcon className="text-blue-800 hover:scale-110 hover:text-blue-900 transition-all cursor-pointer" />
           </a>
           <a
-            href="https://wa.me/+201273239992"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"

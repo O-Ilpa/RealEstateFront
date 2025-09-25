@@ -7,11 +7,11 @@ import * as XLSX from "xlsx";
 import AddForm from "./addForm.jsx";
 import Header from "./header.jsx";
 import PropertyCard from "./propertyCard.jsx";
+import { jwtDecode } from "jwt-decode";
 import { useAuth } from "./contextApi.jsx";
 import axios from "axios";
 
 export default function AdminDashboard() {
-  const { user } = useAuth();
   const [formOpen, openForm] = useState(false);
   const [properties, setProperties] = useState([]);
   const [editedProperty, setEditedProperty] = useState({});
@@ -27,7 +27,7 @@ export default function AdminDashboard() {
   } else {
     BACKAPI = import.meta.env.VITE_PRODUCTION_API;
   }
-
+const user = jwtDecode(localStorage.getItem("token")).name
   const downloadExcel = async () => {
     try {
       const res = await axios.get(`${BACKAPI}/api/properties/download`);
@@ -228,7 +228,9 @@ export default function AdminDashboard() {
             تحميل كملف Excel
           </button>
         </div>
-
+    <div className="text-red-700">
+      {user == "visitor" ? "you're unathorized" : "" }
+    </div>
         <div className="flex flex-wrap justify-evenly mt-5 transition-opacity duration-1000 ease-in">
           {properties.map((property) => (
             <div

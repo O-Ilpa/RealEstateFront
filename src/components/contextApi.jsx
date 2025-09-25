@@ -13,10 +13,9 @@ const ContextProvider = ({ children }) => {
   const login = (user) => {
     setUser(user);
   };
-  const handleLogout = (fetchProperties) => {
+  const handleLogout = () => {
     localStorage.setItem("token", "");
     setUser(null);
-    fetchProperties();
   };
   useEffect(() => {
     const verifyUser = async () => {
