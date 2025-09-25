@@ -4,6 +4,7 @@ import axios from "axios";
 import { Img } from "react-image";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
+
 const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
   const [propertyId, setPropertyId] = useState("");
   const [yearBuilt, setYearBuilt] = useState("");
@@ -73,7 +74,6 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, { preview: URL.createObjectURL(file) })
       );
-      console.log("New files with previews:", newFiles);
       setFiles((previousFiles) => [...previousFiles, ...newFiles]);
     }
 
@@ -90,13 +90,6 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
     onDrop,
   });
 
-  const handleMetersChange = (e) => {
-    const selectedValues = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setMeters(selectedValues);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const API = import.meta.env.VITE_CLOUDINARY_API;
@@ -158,11 +151,10 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
             },
           }
         );
-        console.log(res);
         if (res.data.success) {
+          console.log(res)
           fetchProperties();
           openForm(false);
-          console.log(res.data.message);
         }
       } else {
         const res = await axios.put(
@@ -196,16 +188,23 @@ const AddForm = ({ openForm, fetchProperties, editedProperty }) => {
         );
         console.log(res);
         if (res.data.success) {
+          console.log(res)
           fetchProperties();
           openForm(false);
-          console.log(res);
         }
       }
     } catch (err) {
-      console.error("Upload Error:", err);
+      console.log(err);
     }
   };
 
+  const handleMetersChange = (e) => {
+    const selectedValues = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setMeters(selectedValues);
+  };
   return (
     <>
       <div

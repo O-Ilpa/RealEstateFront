@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./header";
 
@@ -14,7 +14,7 @@ const ShowProperty = () => {
   } else {
     BACKAPI = import.meta.env.VITE_PRODUCTION_API;
   }
-
+console.log("test")
   useEffect(() => {
     const getPropertyWithId = async () => {
       try {

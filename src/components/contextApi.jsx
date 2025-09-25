@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+
 const authContext = createContext();
 const ContextProvider = ({ children }) => {
   const [user, setUser] = useState();
@@ -13,7 +14,7 @@ const ContextProvider = ({ children }) => {
     setUser(user);
   };
   const handleLogout = (fetchProperties) => {
-    localStorage.removeItem("token");
+    localStorage.setItem("token", "");
     setUser(null);
     fetchProperties();
   };
