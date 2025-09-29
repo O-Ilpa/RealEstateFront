@@ -7,7 +7,7 @@ import FacebookIcon from "lucide-react/dist/esm/icons/facebook";
 import InstagramIcon from "lucide-react/dist/esm/icons/instagram";
 import LinkedinIcon from "lucide-react/dist/esm/icons/linkedin";
 import { FaWhatsapp } from "react-icons/fa";
-import { Moon, Sun } from "lucide-react"; 
+import { Moon, Sun } from "lucide-react";
 
 import { useAuth } from "./contextApi";
 
@@ -15,7 +15,10 @@ const Header = ({ fetchProperties }) => {
   const token = localStorage.getItem("token");
   const { handleLogout } = useAuth();
   const [open, setOpen] = useState(false);
-const user = jwtDecode(localStorage.getItem("token")).name
+  let user;
+  if (token) {
+    user = jwtDecode(localStorage.getItem("token")).name;
+  }
 
   const dropdownRef = useRef(null);
   const triggerRef = useRef(null);
@@ -35,7 +38,6 @@ const user = jwtDecode(localStorage.getItem("token")).name
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
 
   return (
     <nav className="sticky z-40 top-0 bg-gradient-to-r from-white to-gray-100 h-16 flex justify-between items-center px-4 shadow">
@@ -58,7 +60,11 @@ const user = jwtDecode(localStorage.getItem("token")).name
         <span className="font-semibold text-sm hidden sm:inline">
           {token ? user || "الحساب" : "تواصل معنا"}
         </span>
-        <div className={`h-8 w-8 rounded-full bg-white flex ${token ? "items-center" : "items-center" } justify-center text-[var(--bg-main)] font-bold`}>
+        <div
+          className={`h-8 w-8 rounded-full bg-white flex ${
+            token ? "items-center" : "items-center"
+          } justify-center text-[var(--bg-main)] font-bold`}
+        >
           {token ? user?.charAt(0).toUpperCase() : "?"}
         </div>
       </div>

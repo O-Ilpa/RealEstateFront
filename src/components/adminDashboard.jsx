@@ -20,14 +20,21 @@ export default function AdminDashboard() {
   const [, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
+  useEffect(() => {
+    if (!token || token == "") {
+      navigate("/");
+    }
+  });
   let BACKAPI;
   if (import.meta.env.MODE === "development") {
     BACKAPI = import.meta.env.VITE_DEVELOPMENT_API;
   } else {
     BACKAPI = import.meta.env.VITE_PRODUCTION_API;
   }
-const user = jwtDecode(localStorage.getItem("token")).name
+  let user;
+  if (token) {
+    user = jwtDecode(localStorage.getItem("token")).name;
+  }
   const downloadExcel = async () => {
     try {
       const res = await axios.get(`${BACKAPI}/api/properties/download`);
@@ -228,9 +235,9 @@ const user = jwtDecode(localStorage.getItem("token")).name
             تحميل كملف Excel
           </button>
         </div>
-    <div className="text-red-700">
-      {user == "visitor" ? "you're unathorized" : "" }
-    </div>
+        <div className="text-red-700">
+          {user == "visitor" ? "you're unathorized" : ""}
+        </div>
         <div className="flex flex-wrap justify-evenly mt-5 transition-opacity duration-1000 ease-in">
           {properties.map((property) => (
             <div

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAuth } from "./contextApi";
 
 const LogIn = () => {
-  const {login} = useAuth()
+  const { login } = useAuth();
   const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ const LogIn = () => {
   } else {
     BACKAPI = import.meta.env.VITE_PRODUCTION_API;
   }
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
       const decoded = jwtDecode(token);
@@ -39,9 +39,9 @@ const LogIn = () => {
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         const decoded = jwtDecode(res.data.token);
-        login(decoded)
-        navigate("/admin/home")
-        console.log(decoded.name)
+        login(decoded);
+        navigate("/admin/home");
+        console.log(decoded.name);
       } else {
         setMessage(res.data.message);
       }
@@ -53,6 +53,9 @@ const LogIn = () => {
   return (
     <>
       <div className=" flex justify-center items-center min-h-screen bg-gray-100">
+        <p className="p-5 absolute  text-center bg-teal-600 text-white rounded-2xl top-24">
+          visitor@mail.com visitor@123
+        </p>
         <div className="rounded-2xl shadow p-6 w-80 bg-white">
           <h2 className="text-2xl font-bold mb-4">تسجيل الدخول</h2>
           <p className="text-red-700">{message}</p>
