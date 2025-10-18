@@ -23,7 +23,7 @@ const LogIn = () => {
     if (token) {
       const decoded = jwtDecode(token);
       if (decoded?.role === "admin") {
-        navigator("/admin/home");
+        navigator("/admin");
       } else {
         navigate("/");
       }
@@ -40,7 +40,7 @@ const LogIn = () => {
         localStorage.setItem("token", res.data.token);
         const decoded = jwtDecode(res.data.token);
         login(decoded);
-        navigate("/admin/home");
+        navigate("/admin");
         console.log(decoded.name);
       } else {
         setMessage(res.data.message);

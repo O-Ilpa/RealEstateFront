@@ -22,7 +22,7 @@ const Header = ({ fetchProperties }) => {
   const dropdownRef = useRef(null);
   const triggerRef = useRef(null);
   const location = useLocation();
-  const isAdminPage = location.pathname === "/admin/home";
+  const isAdminPage = location.pathname === "/admin";
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -94,7 +94,7 @@ const Header = ({ fetchProperties }) => {
                 </button>
               </Link>
             ) : (
-              <Link to="/admin/home">
+              <Link to="/admin">
                 <button className="bg-[var(--bg-main)] w-full py-2 mb-2 rounded-full text-white cursor-pointer hover:bg-[#375963] transition">
                   صفحة المشرف
                 </button>
