@@ -10,19 +10,13 @@ const Home = () => {
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [propertyId, setPropertyId] = useState("");
-const navigate = useNavigate();
-const token = localStorage.getItem("token")
   let BACKAPI;
   if (import.meta.env.MODE === "development") {
     BACKAPI = import.meta.env.VITE_DEVELOPMENT_API;
   } else {
     BACKAPI = import.meta.env.VITE_PRODUCTION_API;
   }
-  useEffect(() => {
-    if (!token || token == "") {
-      navigate("/login");
-    }
-  });
+  
   const handleSearch = (e) => {
     e.preventDefault();
     if (!propertyId.trim()) {

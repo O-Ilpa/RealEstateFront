@@ -7,7 +7,6 @@ import FacebookIcon from "lucide-react/dist/esm/icons/facebook";
 import InstagramIcon from "lucide-react/dist/esm/icons/instagram";
 import LinkedinIcon from "lucide-react/dist/esm/icons/linkedin";
 import { FaWhatsapp } from "react-icons/fa";
-import { Moon, Sun } from "lucide-react";
 
 import { useAuth } from "./contextApi";
 
@@ -107,9 +106,9 @@ const Header = ({ fetchProperties }) => {
             <h2 className="text-xl font-semibold mb-4 text-center">
               تواصل معنا مباشرة
             </h2>
-            <Link to="/contact">
+            <Link to="/login">
               <button className="bg-[var(--bg-main)] w-full py-2 mb-2 rounded-full text-white cursor-pointer hover:bg-[#375963] transition">
-                تواصل معنا
+                تسجيل الدخول
               </button>
             </Link>
           </>
